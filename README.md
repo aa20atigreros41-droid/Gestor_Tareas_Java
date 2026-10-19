@@ -1,2 +1,2 @@
 # Gestor_Tareas_Java
-# Alejandro Tigreros Grajales
+# Alejandro Tigreros Grajales - Desarrollador A - main
