@@ -50,4 +50,18 @@ public class Gestor_Tareas_Java {
             }
         }
     }
+
+	public void listar_tareas_java(ArrayList<String> tareasGit) {
+		if (tareas.isEmpty()) {
+			System.out.println("No hay tareas.");
+			return;
+		}
+
+		for (int i = 0; i < tareas.size(); i++) {
+			System.out.println((i + 1) + ". " + tareas.get(i));
+		}
+	}
+
+    public List<String> getTareas() {
+        return tareas;
 }
