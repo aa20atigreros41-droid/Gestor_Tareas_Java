@@ -1,39 +1,65 @@
 import java.util.List;
+import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Gestor_Tareas_Java {
-    public static void eliminarTarea(ArrayList<String> tareas, int indice){
-		int b = tareas.remove(indice);
-		if(b<0){
-			System.out.println("No se pudo eliminar la tarea porque no existe");
-		}
-	}
+    public static void eliminarTarea(ArrayList<String> tareas, int indice) {
+        if (indice >= 0 && indice < tareas.size()) {
+            String eliminada = tareas.remove(indice);
+            System.out.println("Tarea '" + eliminada + "' eliminada correctamente.");
+        } else {
+            System.out.println("No se pudo eliminar la tarea porque no existe.");
+        }
+    }3
+
     public static void main(String[] args) {
 
         ArrayList<String> tareas = new ArrayList<>();
-
-        switch (args[0]) {
-            case "agregar":
-                String tarea = args[1];
-                tareas.add(tarea);
-                System.out.println("Tarea agregada: " + tarea);
-                break;
-            case "listar":
-                System.out.println("Lista de tareas:");
-                for (String t : tareas) {
-                    System.out.println("- " + t);
-                }
-                break;
-            case "modificar":
-                String tareaVieja = args[1];
-                String tareaNueva = args[2];
-                tareas.remove(tareaVieja);
-                tareas.add(tareaNueva);
-                System.out.println("Tarea modificada: " + tareaVieja + " -> " + tareaNueva);
-                break;
-            default:
-                System.out.println("Comando no reconocido. Usa 'agregar', 'listar' o 'modificar'.");
-        }
+		Scanner scanner = new Scanner(System.in);
+		String opcion = "";
+		do{
+			System.out.println("------------------------------");
+            System.out.println("- 1. Crear tareas            -");
+            System.out.println("- 2. Borrar tareas           -");
+            System.out.println("- 3. Listar tareas           -");
+            System.out.println("- q. Salir                   -");
+            System.out.println("------------------------------");
+            System.out.print("Selecciona una opción: ");
+            opcion = scanner.nextLine().trim();
+			switch (opcion.toLowerCase()) {
+				case "1":
+					agregarTareas(tareas, scanner);
+					break;
+				case "2":
+					if (tareas.isEmpty()) {
+                        System.out.println("No hay tareas para eliminar.");
+                    } else {
+                        System.out.println("\n--- Lista actual de tareas ---");
+                        for (int i = 0; i < tareas.size(); i++) {
+                            System.out.println((i + 1) + ". " + tareas.get(i));
+                        }
+                        
+                        System.out.print("Introduce el número de la tarea que deseas eliminar: ");
+                        try {
+                            int numero = Integer.parseInt(scanner.nextLine().trim());
+                            // Convertimos la posición visible (1..N) al índice base 0 del ArrayList
+                            eliminarTarea(tareas, numero - 1);
+                        } catch (NumberFormatException e) {
+                            System.out.println("Error: Debes introducir un número válido.");
+                        }
+                    }
+					break;
+				case "3":
+					listar_tareas_java(tareas);
+					break;
+                case "q":
+                    System.out.println("Saliendo del programa...");
+                    break;
+				default:
+					System.out.println("Comando no reconocido. Usa 'agregar', 'listar' o 'modificar'.");
+			}
+		} while (!opcion.equalsIgnoreCase("q"));
+		scanner.close();
     }
 
 	
@@ -57,7 +83,7 @@ public class Gestor_Tareas_Java {
         }
     }
 
-	public void listar_tareas_java(ArrayList<String> tareasGit) {
+	public static void listar_tareas_java(ArrayList<String> tareas) {
 		if (tareas.isEmpty()) {
 			System.out.println("No hay tareas.");
 			return;
@@ -67,8 +93,4 @@ public class Gestor_Tareas_Java {
 			System.out.println((i + 1) + ". " + tareas.get(i));
 		}
 	}
-
-    public List<String> getTareas() {
-        return tareas;
-      
 }
